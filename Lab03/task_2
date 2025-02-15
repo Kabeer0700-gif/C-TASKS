@@ -1,0 +1,129 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class FitnessTracker
+{
+public:
+    string name;
+    int dailyStepsGoal;
+    int stepsTaken;
+    float caloriesBurned;
+
+    FitnessTracker(string name)
+    {
+        this->name = name;
+        dailyStepsGoal = 0;
+        stepsTaken = 0;
+        caloriesBurned = 0;
+    }
+
+    void logSteps()
+    {
+        int steps;
+        if (stepsTaken < dailyStepsGoal)
+        {
+            steps = dailyStepsGoal - stepsTaken;
+            cout << "You Need " << steps << " more steps to meet your desired outcome" << endl;
+        }
+        else if (stepsTaken > dailyStepsGoal)
+        {
+            steps = stepsTaken - dailyStepsGoal;
+            cout << "Congrats! You took extra " << steps << " steps" << endl;
+        }
+        else
+        {
+            cout << "Congrats you meet your desired goal" << endl;
+        }
+    }
+
+    void calculateCalories()
+    {
+        if (dailyStepsGoal != 0 && stepsTaken != 0)
+        {
+            caloriesBurned = stepsTaken * 0.04;
+            cout << "Calories burned " << caloriesBurned << endl;
+            cout << "\n";
+        }
+        else
+        {
+            cout << "First enter your details\n";
+        }
+    }
+
+    void displayProgress()
+    {
+        if (caloriesBurned != 0)
+        {
+            float desired;
+            desired = dailyStepsGoal * 0.04;
+            if (caloriesBurned > desired)
+            {
+                cout << "Congrats you are in progress " << caloriesBurned << endl;
+            }
+            else if (caloriesBurned < desired)
+            {
+                cout << "You need to walk more to meet your desired goal" << endl;
+                cout << "Calories burned " << caloriesBurned << endl;
+                cout << "desired output " << desired;
+            }
+            else
+            {
+                cout << "Congrats you meet your desired output " << caloriesBurned << endl;
+            }
+        }
+        else{
+            cout << "First enter your details\n";
+        }
+    }
+};
+
+int main()
+{
+    cout << "Enter your name:\t";
+    string name;
+    cin >> name;
+    cout << "Welcome " << name << " your fitness tracker has been created:" << endl;
+    FitnessTracker f(name);
+
+    int flag = 1;
+    int choice;
+    while (flag)
+    {
+        cout << " 1)Track steps \n 2)Calculate calories\n 3)VIEW Progress\n 4)EXIT PROGRAM\n Enter your choice(1-4)" << endl;
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+        {
+            cout << "Enter your daily steps goal\t";
+            cin >> f.dailyStepsGoal;
+            cout << "Enter steps you took\t";
+            cin >> f.stepsTaken;
+            f.logSteps();
+            break;
+        }
+
+        case 2:
+        {
+            f.calculateCalories();
+            break;
+        }
+
+        case 3:
+        {
+           f.displayProgress();
+           cout<<"\n";
+            break;
+        }
+
+        case 4:
+        {
+            flag = 0;
+            break;
+        }
+        }
+    }
+}
