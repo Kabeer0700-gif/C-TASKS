@@ -1,0 +1,49 @@
+#include<iostream>
+using namespace std;
+
+class Apartment{
+ private:
+  string uniqueId;
+  string address;
+  string* ownerName;
+
+  public:
+  Apartment(){
+    ownerName = new string;
+  }
+  Apartment(string uniqueId,string address,string ownName) : uniqueId(uniqueId) , address(address){
+     ownerName = new string;
+     *ownerName = ownName;
+  }
+  
+  void setOwnerName(string own){
+    *ownerName = own;
+  }
+  Apartment(const Apartment &flat){
+    ownerName = new string;
+    *ownerName = *flat.ownerName;
+     address = flat.address;
+     uniqueId = flat.uniqueId;
+  }
+
+  void displayApp(){
+    cout<<"\n----------------------------"<<endl;
+     cout<<"Owner Name: "<<*ownerName<<endl;
+     cout<<"Unique Id: "<<uniqueId<<endl;
+     cout<<"Address: "<<address<<endl;
+
+  }
+   ~Apartment(){
+    delete ownerName;
+   }
+};
+
+int main(){
+     Apartment A1("34pAF","NAZIMABAD","kabeer");
+     Apartment A2 = A1;
+     A1.displayApp();
+     A2.displayApp();
+     A2.setOwnerName("Shamveel");
+     A1.displayApp();
+     A2.displayApp();
+}
